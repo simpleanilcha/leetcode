@@ -1,8 +1,3 @@
-// function TreeNode(val) {
-//   this.val = val;
-//   this.left = this.right = null;
-// }
-
 class TreeNode {
   constructor(val) {
     this.val = val
@@ -35,7 +30,7 @@ function constructBinaryTree(arr) {
 }
 
 const arr = [1, null, 2, 3];
-const root = constructBinaryTree(arr);
+let root = constructBinaryTree(arr);
 console.log(root);
 
 // Binary Tree preorder Traversal
@@ -104,3 +99,63 @@ const countNodes = root => {
 }
 
 console.log(countNodes(root))           // output 3
+
+
+// 700. Search in a Binary Search Tree
+// https://leetcode.com/problems/search-in-a-binary-search-tree
+
+root = constructBinaryTree([4,2,7,1,3]);
+var searchBST = function(root, val) {
+  if (!root) return null
+
+  if (val > root.val) return searchBST(root.right, val)
+  else if (val < root.val) return searchBST(root.left, val)
+  else return root
+};
+console.log(searchBST(root, 2))
+
+// 701. Insert into a Binary Search Tree
+// https://leetcode.com/problems/insert-into-a-binary-search-tree
+root = constructBinaryTree([40,20,60,10,30,50,70]);
+var insertIntoBST = function(root, val) {
+  if (!root) return new TreeNode(val)
+
+  if (val > root.val) root.right = insertIntoBST(root.right, val)
+  else if (val < root.val) root.left = insertIntoBST(root.left, val)
+
+  return root
+};
+console.log(insertIntoBST(root, 25))
+
+// 450. Delete Node in a BST
+// https://leetcode.com/problems/delete-node-in-a-bst/
+
+var deleteNode = function(root, key) {
+  if (!root) return null
+
+  const getMinValNode = root => {
+      let current = root
+      while(current && current.left) {
+          current = current.left
+      }
+      return current
+  }
+
+  if (key > root.val) root.right = deleteNode(root.right, key)
+  else if (key < root.val) root.left = deleteNode(root.left, key)
+  else {
+      if (!root.left) return root.right
+      else if (!root.right) return root.left
+      else {
+          const minNode = getMinValNode(root.right)
+          root.val = minNode.val
+          root.right = deleteNode(root.right, minNode.val)
+      }
+  }
+
+  return root
+};
+
+root = constructBinaryTree([5,3,6,2,4,null,7]);
+let key = 3;
+console.log(deleteNode(root, key))
