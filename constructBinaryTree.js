@@ -158,4 +158,36 @@ var deleteNode = function(root, key) {
 
 root = constructBinaryTree([5,3,6,2,4,null,7]);
 let key = 3;
-console.log(deleteNode(root, key))
+let result = deleteNode(root, key)
+console.log(result)
+
+// convert returned result TreeNode to an Array
+function toArray(root) {
+  const result = [];
+  const queue = [root];
+
+  while (queue.length) {
+    const node = queue.shift();
+    result.push(node ? node.val : null);
+
+    if (node) {
+      queue.push(node.left);
+      queue.push(node.right);
+    }
+  }
+
+  // return result;
+
+  // remove unnecessary 'null' items from array
+  result.forEach(item => {
+    if (result[result.length - 1] === null) {
+      result.pop()
+      return result
+    }
+  })
+  
+  return result
+}
+
+const convertedResultArr = toArray(result);
+console.log(convertedResultArr); // [5, 4, 6, 2, null, null, 7]
