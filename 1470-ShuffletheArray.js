@@ -3,11 +3,10 @@
  * @param {number} n
  * @return {number[]}
  */
-var shuffle = function(nums, n) {
-  const halfLen = nums.length / 2
+var shuffle = function (nums, n) {
   const result = []
-  for (let i = 0; i < halfLen; i++) {
-    result.push(nums[i], nums[i+n])
+  for (let i = 0; i < n; i++) {
+    result.push(nums[i], nums[i + n])
   }
-  return result    
+  return result
 };
