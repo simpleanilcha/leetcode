@@ -4,20 +4,27 @@
  */
 var calPoints = function (operations) {
   const record = []
+  let sum = 0
 
   for (let i = 0; i < operations.length; i++) {
     const recordLength = record.length
     if (operations[i] === '+') {
-      record.push(Number(record[recordLength - 1]) + Number(record[recordLength - 2]))
+      const number = Number(record[recordLength - 1]) + Number(record[recordLength - 2])
+      record.push(number)
+      sum += number
     } else if (operations[i] === 'C') {
-      record.pop()
+      const number = record.pop()
+      sum -= number
     } else if (operations[i] === 'D') {
-      record.push(Number(record[recordLength - 1]) * 2)
+      const number = Number(record[recordLength - 1]) * 2
+      record.push(number)
+      sum += number
     } else {
-      record.push(Number(operations[i]))
+      const number = Number(operations[i])
+      record.push(number)
+      sum += number
     }
   }
 
-  const sum = record.reduce((accum, curr) => accum + curr, 0)
   return sum
 };
