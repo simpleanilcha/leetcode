@@ -3,30 +3,18 @@
  * @return {number}
  */
 var minOperations = function (nums) {
-  const n = nums.length;
-  let ans = n; // Initialize the answer as the maximum possible value 'n'.
-  const s = new Set(); // Create a set to store unique elements from 'nums'.
+  const length = nums.length;
+  let minOperations = length;
+  const uniqueNums = new Set(nums);
+  const sortedUniqueNums = Array.from(uniqueNums).sort((a, b) => a - b);
+  let right = 0;
 
-  // Step 1: Insert all unique elements from 'nums' into the set 's'.
-  for (const a of nums) {
-    s.add(a);
-  }
-
-  // Step 2: Convert the set 's' back to an array 'unique'.
-  const unique = [...s];
-
-  let j = 0; // Initialize a pointer 'j'.
-  const m = unique.length; // Get the size of the 'unique' array.
-
-  // Step 3: Iterate through the 'unique' array.
-  for (let i = 0; i < m; i++) {
-    // Step 4: Move the pointer 'j' to find the rightmost element within the current range.
-    while (j < m && unique[j] < unique[i] + n) {
-      j++;
+  for (let left = 0; left < sortedUniqueNums.length; left++) {
+    while (right < sortedUniqueNums.length && sortedUniqueNums[right] < sortedUniqueNums[left] + length) {
+      right++;
     }
-    // Step 5: Calculate the minimum operations required for the current range.
-    ans = Math.min(ans, n - (j - i));
+    minOperations = Math.min(minOperations, length - (right - left));
   }
-  // Step 6: Return the minimum operations required.
-  return ans;
+
+  return minOperations;
 };
