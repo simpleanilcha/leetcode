@@ -26,18 +26,3 @@ var inorderTraversal = function (root) {
   return result;
 };
 
-// console.log(inorderTraversal(1,null,2,3))
-
-/*
-Case 1
-root = [1,null,2,3]
-Output = [1,3,2]
-
-Case 2
-root = []
-Output = []
-
-Case 3
-root = [1]
-Output = [1]
-*/
